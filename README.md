@@ -1,13 +1,34 @@
-# 🧙‍♂️ Backend — Stage 0 Task
+Backend Wizards — Stage 0 Task
 
-This project is my **Stage 0 backend task** for the HNG Internship.  
-It exposes a RESTful `/me` endpoint that returns my profile information along with a **random cat fact** fetched dynamically from the [Cat Facts API](https://catfact.ninja/fact).
+This project was built for HNG Backend Stage 0.
+It exposes a single endpoint /me that returns profile information and a random cat fact fetched from Cat Facts API
+.
 
----
+📡 Endpoint
 
-## 🚀 Endpoint
+GET /me
 
-**GET** `/me`
-👉 GitHub Repo: https://github.com/chibueze-somto/backend-stage0
+Example Response
+{
+"status": "success",
+"user": {
+"email": "youremail@example.com",
+"name": "Chibueze Somtochukwu",
+"stack": "Node.js/Express"
+},
+"timestamp": "2025-10-17T12:00:00.000Z",
+"fact": "Cats sleep for 70% of their lives."
+}
 
-Example (live URL):
+🧰 Run Locally
+git clone https://github.com/<onahchibueze>/backend-stage0.git
+cd backend-stage0
+npm install
+
+Run the app in development:
+
+npm run dev
+
+Then visit:
+
+http://localhost:3000/me
