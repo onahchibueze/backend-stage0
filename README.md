@@ -21,7 +21,7 @@ Example Response
 }
 
 🧰 Run Locally
-git clone https://github.com/<onahchibueze>/backend-stage0.git
+git clone https://github.com/onahchibueze/backend-stage0.git
 cd backend-stage0
 npm install
 
