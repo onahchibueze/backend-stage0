@@ -1,6 +1,7 @@
 import express from "express";
 import axios from "axios";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 const app = express();
 app.use(
   cors({
@@ -11,6 +12,11 @@ app.use(
 );
 
 const PORT = process.env.PORT || 5000;
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 50,
+});
+app.use(limiter);
 app.get("/me", async (req, res) => {
   try {
     const response = await axios.get("https://catfact.ninja/fact", {
@@ -30,26 +36,12 @@ app.get("/me", async (req, res) => {
     };
     res.status(200).json(data);
   } catch (error) {
-    console.error("❌ Error fetching cat fact:", error.message);
-
-    if (error.code === "ECONNABORTED" || error.code === "ENOTFOUND") {
-      return res.status(504).json({
-        status: "error",
-        message:
-          "Cat Facts API timed out or is unreachable. Please try again later.",
-      });
-    }
-
-    if (error.response) {
-      return res.status(error.response.status).json({
-        status: "error",
-        message: `Cat Facts API returned ${error.response.status}: ${error.response.statusText}`,
-      });
-    }
+    console.error("Cat API error:", error.message);
 
     res.status(500).json({
       status: "error",
-      message: "An unexpected error occurred while fetching cat fact.",
+      message: "Failed to fetch cat fact. Try again later.",
+      timestamp: new Date().toISOString(),
     });
   }
 });
