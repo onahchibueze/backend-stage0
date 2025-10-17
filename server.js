@@ -11,7 +11,7 @@ app.use(
   })
 );
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 50,
@@ -40,6 +40,7 @@ app.get("/me", async (req, res) => {
 
     res.status(500).json({
       status: "error",
+
       message: "Failed to fetch cat fact. Try again later.",
       timestamp: new Date().toISOString(),
     });
